@@ -1,10 +1,11 @@
 package com.bkv.intellij.circleci.client;
 
+import com.bkv.intellij.circleci.build.BuildInterface;
 import com.bkv.intellij.circleci.build.RecentBuild;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ public class CircleCiHttpClient implements CircleCiClientInterface {
     }
 
     @Override
-    public List<RecentBuild> getRecentBuilds() {
-        List<RecentBuild> recentBuilds = new ArrayList<>();
+    public List<BuildInterface> getRecentBuilds() {
+        List<BuildInterface> recentBuilds = new ArrayList<>();
         try {
             URL url = new URL(this.url + "recent-builds?circle-token=" + this.token);
             String response = this.client.request("GET", url);
@@ -30,7 +31,7 @@ public class CircleCiHttpClient implements CircleCiClientInterface {
             Gson gson = new Gson();
             recentBuilds = gson.fromJson(response, new TypeToken<List<RecentBuild>>() {
             }.getType());
-        } catch (MalformedURLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
