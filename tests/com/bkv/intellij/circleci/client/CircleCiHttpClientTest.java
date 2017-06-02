@@ -1,4 +1,4 @@
-package com.bkv.intellij.circleci.Client;
+package com.bkv.intellij.circleci.client;
 
 import junit.framework.TestCase;
 import org.junit.Assert;

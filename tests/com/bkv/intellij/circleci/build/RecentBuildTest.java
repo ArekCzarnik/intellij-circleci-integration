@@ -1,4 +1,4 @@
-package com.bkv.intellij.circleci.Build;
+package com.bkv.intellij.circleci.build;
 
 import com.google.gson.Gson;
 import junit.framework.TestCase;
