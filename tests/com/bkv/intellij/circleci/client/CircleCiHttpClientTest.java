@@ -1,5 +1,6 @@
 package com.bkv.intellij.circleci.client;
 
+import com.bkv.intellij.circleci.build.BuildInterface;
 import com.bkv.intellij.circleci.build.RecentBuild;
 import junit.framework.TestCase;
 import org.apache.commons.io.IOUtils;
@@ -33,7 +34,7 @@ public class CircleCiHttpClientTest extends TestCase {
         String response = getRecentBuildsResponse();
         when(this.httpClient.request("GET", expectedUrl)).thenReturn(response);
 
-        List<RecentBuild> recentBuilds = this.subject.getRecentBuilds();
+        List<BuildInterface> recentBuilds = this.subject.getRecentBuilds();
 
         assertEquals(1, recentBuilds.size());
         assertTrue(recentBuilds.get(0) instanceof RecentBuild);
