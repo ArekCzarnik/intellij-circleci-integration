@@ -9,7 +9,7 @@ public interface BuildInterface {
 
     String getCommitterName();
 
-    Date getCommitterDate();
+    String getCommitterDate();
 
     String getStatus();
 

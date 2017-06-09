@@ -15,7 +15,8 @@ public class RecentBuildTreeCellRenderer extends DefaultTreeCellRenderer {
         Object o = ((DefaultMutableTreeNode) value).getUserObject();
         if (o instanceof BuildInterface) {
             BuildInterface build = (BuildInterface) o;
-            setText(build.getSubject());
+            setText("[" + build.getStatus() + "] #" + build.getBuildNumber() + ' ' + build.getSubject());
+            setToolTipText("By " + build.getCommitterName() + " on " + build.getCommitterDate() + "\nVCS Revision was " + build.getVcsRevision());
         }
         return c;
     }
