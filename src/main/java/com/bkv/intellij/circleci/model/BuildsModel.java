@@ -9,12 +9,16 @@ import com.intellij.ide.util.PropertiesComponent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class BuildsModel {
 
     private CircleCiClientInterface client;
     private List<BuildListenerInterface> buildListeners;
     private List<BuildInterface> builds;
+    private Timer refreshTimer;
     private static BuildsModel instance;
 
     private BuildsModel(CircleCiClientInterface client)
@@ -22,6 +26,7 @@ public class BuildsModel {
         this.client = client;
         buildListeners = new ArrayList<>();
         builds = new ArrayList<>();
+        refreshTimer = new Timer("Builds refresh", true);
     }
 
     public static BuildsModel getInstance()
@@ -44,6 +49,21 @@ public class BuildsModel {
     public static void resetInstance()
     {
         instance = null;
+    }
+
+    public void enableAutoRefresh(int seconds)
+    {
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        }, seconds * 1000, seconds * 1000);
+    }
+
+    public void disableAutoRefresh()
+    {
+        refreshTimer.cancel();
     }
 
     public void refresh()
