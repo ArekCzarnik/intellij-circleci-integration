@@ -13,7 +13,7 @@ public class RecentBuildTest extends TestCase {
         Assert.assertEquals(new Integer(10), build.getBuildNumber());
         Assert.assertEquals("a09323cd987", build.getVcsRevision());
         Assert.assertEquals("Tinus Tester", build.getCommitterName());
-        Assert.assertEquals(new Date("Sat, 01 Jan 2000 00:00:00"), build.getCommitterDate());
+        Assert.assertEquals("Sat Jan 01 00:00:00 CET 2000", build.getCommitterDate());
         Assert.assertEquals("success", build.getStatus());
         Assert.assertEquals("Test subject", build.getSubject());
         Assert.assertEquals("success", build.getOutcome());

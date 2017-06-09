@@ -76,7 +76,7 @@ public class RecentBuild implements BuildInterface {
     public String getCommitterDate() {
         String committerDate = "unknown date";
         if (this.committerDate != null) {
-            committerDate = this.committerDate.toLocaleString();
+            committerDate = this.committerDate.toString();
         }
         return committerDate;
     }
