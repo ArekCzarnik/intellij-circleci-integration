@@ -47,7 +47,9 @@
                         </goals>
                         <configuration>
                             <resources>
-                                <resource>src/main/resources</resource>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                </resource>
                             </resources>
                         </configuration>
                     </execution>
@@ -71,7 +73,9 @@
                         </goals>
                         <configuration>
                             <resources>
-                                <resource>tests/main/resources</resource>
+                                <resource>
+                                    <directory>tests/main/resources</directory>
+                                </resource>
                             </resources>
                         </configuration>
                     </execution>
