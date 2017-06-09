@@ -1,4 +1,4 @@
-package com.bkv.intellij.circleci.model;
+package com.bkv.intellij.circleci.build.model;
 
 import com.bkv.intellij.circleci.build.BuildInterface;
 import com.bkv.intellij.circleci.client.CircleCiClientInterface;

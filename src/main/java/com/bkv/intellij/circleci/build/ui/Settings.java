@@ -1,4 +1,4 @@
-package com.bkv.intellij.circleci.ui;
+package com.bkv.intellij.circleci.build.ui;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.Configurable;

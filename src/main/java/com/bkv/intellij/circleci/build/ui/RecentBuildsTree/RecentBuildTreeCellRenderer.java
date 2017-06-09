@@ -1,4 +1,4 @@
-package com.bkv.intellij.circleci.ui.RecentBuildsTree;
+package com.bkv.intellij.circleci.build.ui.RecentBuildsTree;
 
 import com.bkv.intellij.circleci.build.BuildInterface;
 

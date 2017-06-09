@@ -1,12 +1,9 @@
-package com.bkv.intellij.circleci.ui;
+package com.bkv.intellij.circleci.build.ui;
 
 import com.bkv.intellij.circleci.build.BuildInterface;
-import com.bkv.intellij.circleci.client.CircleCiHttpClient;
-import com.bkv.intellij.circleci.client.HttpClient;
-import com.bkv.intellij.circleci.model.BuildListenerInterface;
-import com.bkv.intellij.circleci.model.BuildsModel;
-import com.bkv.intellij.circleci.ui.RecentBuildsTree.RecentBuildTreeCellRenderer;
-import com.intellij.ide.util.PropertiesComponent;
+import com.bkv.intellij.circleci.build.model.BuildListenerInterface;
+import com.bkv.intellij.circleci.build.model.BuildsModel;
+import com.bkv.intellij.circleci.build.ui.RecentBuildsTree.RecentBuildTreeCellRenderer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -16,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.*;
-import java.awt.*;
 
 public class RecentBuildsToolWindowFactory implements ToolWindowFactory, BuildListenerInterface {
 

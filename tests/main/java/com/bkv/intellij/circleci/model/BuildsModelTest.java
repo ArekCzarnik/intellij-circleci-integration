@@ -2,6 +2,8 @@ package com.bkv.intellij.circleci.model;
 
 import com.bkv.intellij.circleci.build.BuildInterface;
 import com.bkv.intellij.circleci.build.RecentBuild;
+import com.bkv.intellij.circleci.build.model.BuildListenerInterface;
+import com.bkv.intellij.circleci.build.model.BuildsModel;
 import com.bkv.intellij.circleci.client.CircleCiClientInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
