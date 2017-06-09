@@ -19,6 +19,8 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable instance="com.bkv.intellij.circleci.ui.Settings"/>
+    <toolWindow id="CircleCI Builds" secondary="true" icon="/circleci/circleci.png" anchor="right"
+                factoryClass="com.bkv.intellij.circleci.ui.RecentBuildsToolWindowFactory"/>
   </extensions>
 
   <actions>
