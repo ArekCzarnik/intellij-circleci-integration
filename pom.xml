@@ -28,6 +28,30 @@
                 <version>3.0.0</version>
                 <executions>
                     <execution>
+                        <id>add-test-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>src/main/resources</resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>add-unit-test-sources</id>
                         <phase>generate-test-sources</phase>
                         <goals>
@@ -37,6 +61,18 @@
                             <sources>
                                 <source>tests/main/java</source>
                             </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-unit-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>tests/main/resources</resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
