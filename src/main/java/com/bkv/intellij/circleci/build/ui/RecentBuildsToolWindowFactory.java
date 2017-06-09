@@ -31,7 +31,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory, BuildLi
     @Override
     public void init(ToolWindow window) {
         builds = BuildsModel.getInstance();
-
+        builds.addBuildListener(this);
         rootNode = new DefaultMutableTreeNode("CircleCI");
 
         TreeModel treeModel = new DefaultTreeModel(rootNode);
