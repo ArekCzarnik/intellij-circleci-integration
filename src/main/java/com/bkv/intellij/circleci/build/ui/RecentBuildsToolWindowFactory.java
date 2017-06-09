@@ -63,6 +63,20 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory, BuildLi
 
     @Override
     public void onBuildStatusWasUpdated(BuildInterface build) {
+        DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) tree1.getModel().getRoot();
+        updateNodesWithBuild(rootNode, build);
+    }
 
+    private void updateNodesWithBuild(DefaultMutableTreeNode rootNode, BuildInterface build) {
+        for (int i = 0; i < rootNode.getChildCount(); i++) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) rootNode.getChildAt(i);
+            Object userObject = node.getUserObject();
+            if (userObject instanceof BuildInterface) {
+                if (userObject.equals(build)) {
+                    node.setUserObject(build);
+                }
+            }
+            updateNodesWithBuild(node, build);
+        }
     }
 }
