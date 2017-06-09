@@ -17,7 +17,17 @@ public class RecentBuildTreeCellRenderer extends DefaultTreeCellRenderer {
             BuildInterface build = (BuildInterface) o;
             setText("[" + build.getStatus() + "] #" + build.getBuildNumber() + ' ' + build.getSubject());
             setToolTipText("By " + build.getCommitterName() + " on " + build.getCommitterDate() + "\nVCS Revision was " + build.getVcsRevision());
+            setIcon(getIcon(build));
         }
         return c;
+    }
+
+    private ImageIcon getIcon(BuildInterface build) {
+        ImageIcon icon;
+        switch (build.getStatus()) {
+            default:
+                icon = new ImageIcon(getClass().getResource("/circleci/008-error.png").getPath());
+        }
+        return icon;
     }
 }
