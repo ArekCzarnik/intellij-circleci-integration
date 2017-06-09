@@ -42,8 +42,8 @@ public class CircleCiHttpClientTest extends TestCase {
 
     private String getRecentBuildsResponse() throws Exception {
         return IOUtils.toString(
-                getClass().getResourceAsStream("/test/resources/recent-builds.json"),
-                Charset.defaultCharset()
+            getClass().getResourceAsStream("/recent-builds.json"),
+            Charset.defaultCharset()
         );
     }
 }
