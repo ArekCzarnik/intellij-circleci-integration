@@ -53,6 +53,7 @@ public class BuildsModel {
 
     public void enableAutoRefresh(int seconds)
     {
+        refreshTimer = new Timer("Builds refresh", true);
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
