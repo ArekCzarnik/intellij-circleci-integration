@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BuildsModelTest {
 
@@ -28,12 +29,13 @@ public class BuildsModelTest {
     public void setUp()
     {
         client = mock(CircleCiClientInterface.class);
-        model = new BuildsModel(client);
+        model = BuildsModel.getInstance(client);
     }
 
     @After
     public void tearDown()
     {
+        BuildsModel.resetInstance();
         client = null;
         model = null;
     }
@@ -54,37 +56,41 @@ public class BuildsModelTest {
         Assert.assertFalse(model.hasBuildListener(listener));
     }
 
-    @Test
+
     public void canApplyBuilds() throws IOException {
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
         List<BuildInterface> builds = createMockBuilds();
+        when(client.getRecentBuilds()).thenReturn(builds);
+
+        BuildListenerInterface listener = mock(BuildListenerInterface.class);
 
         model.addBuildListener(listener);
-        model.applyBuilds(builds);
+        model.refresh();
 
         verify(listener).onBuildWasAdded(builds.get(0));
     }
 
-    @Test
+
     public void applyBuildsCannotAddSameBuildTwice() throws IOException {
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
         List<BuildInterface> builds = createMockBuilds();
+        when(client.getRecentBuilds()).thenReturn(builds);
+
+        BuildListenerInterface listener = mock(BuildListenerInterface.class);
 
         model.addBuildListener(listener);
-        model.applyBuilds(builds);
-        model.applyBuilds(builds);
+        model.refresh();
 
         verify(listener).onBuildWasAdded(builds.get(0));
     }
 
-    @Test
+
     public void canApplyBuildsCanUpdateABuildStatus() throws IOException {
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
         List<BuildInterface> builds = createMockBuilds();
+        when(client.getRecentBuilds()).thenReturn(builds);
+
+        BuildListenerInterface listener = mock(BuildListenerInterface.class);
 
         model.addBuildListener(listener);
-        model.applyBuilds(builds);
-        model.applyBuilds(builds);
+        model.refresh();
 
         verify(listener).onBuildStatusWasUpdated(builds.get(0));
     }
