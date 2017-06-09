@@ -59,15 +59,15 @@ public class Settings implements Configurable {
 
     public void apply() throws ConfigurationException {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue("com.gheevel.circleci.api_key", txtApiKey.getText());
-        propertiesComponent.setValue("com.gheevel.circleci.refresh_interval", txtRefreshInterval.getText());
+        propertiesComponent.setValue("com.bkv.intellij.circleci.api_key", txtApiKey.getText());
+        propertiesComponent.setValue("com.bkv.intellij.circleci.refresh_interval", txtRefreshInterval.getText());
         changed = false;
     }
 
     public void reset() {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        String apiKey = propertiesComponent.getValue("com.gheevel.circleci.api_key", "Your circleci api key found under account settings");
-        String refreshInterval = propertiesComponent.getValue("com.gheevel.circleci.refresh_interval", "30");
+        String apiKey = propertiesComponent.getValue("com.bkv.intellij.circleci.api_key", "Your circleci api key found under account settings");
+        String refreshInterval = propertiesComponent.getValue("com.bkv.intellij.circleci.refresh_interval", "30");
 
         txtApiKey.setText(apiKey);
         txtRefreshInterval.setText(refreshInterval);
