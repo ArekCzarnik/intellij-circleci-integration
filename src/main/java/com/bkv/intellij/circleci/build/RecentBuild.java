@@ -88,5 +88,20 @@ public class RecentBuild implements BuildInterface {
     public String getBuildUrl() {
         return buildUrl;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RecentBuild that = (RecentBuild) o;
+
+        return buildNumber.equals(that.buildNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return buildNumber.hashCode();
+    }
 }
 
