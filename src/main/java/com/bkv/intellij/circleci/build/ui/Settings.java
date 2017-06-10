@@ -62,8 +62,6 @@ public class Settings implements Configurable {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
         propertiesComponent.setValue("com.bkv.intellij.circleci.api_key", txtApiKey.getText());
         propertiesComponent.setValue("com.bkv.intellij.circleci.refresh_interval", txtRefreshInterval.getText());
-        BuildsModel.getInstance().disableAutoRefresh();
-        BuildsModel.getInstance().enableAutoRefresh(new Integer(txtRefreshInterval.getText()));
         changed = false;
     }
 

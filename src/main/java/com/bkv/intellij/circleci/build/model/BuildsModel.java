@@ -9,8 +9,6 @@ import com.intellij.ide.util.PropertiesComponent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class BuildsModel {
@@ -18,7 +16,6 @@ public class BuildsModel {
     private CircleCiClientInterface client;
     private List<BuildListenerInterface> buildListeners;
     private List<BuildInterface> builds;
-    private Timer refreshTimer;
     private static BuildsModel instance;
 
     private BuildsModel(CircleCiClientInterface client)
@@ -26,7 +23,6 @@ public class BuildsModel {
         this.client = client;
         buildListeners = new ArrayList<>();
         builds = new ArrayList<>();
-        refreshTimer = new Timer("Builds refresh", true);
     }
 
     public static BuildsModel getInstance()
@@ -51,22 +47,6 @@ public class BuildsModel {
         instance = null;
     }
 
-    public void enableAutoRefresh(int seconds)
-    {
-        refreshTimer = new Timer("Builds refresh", true);
-        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                refresh();
-            }
-        }, seconds * 1000, seconds * 1000);
-    }
-
-    public void disableAutoRefresh()
-    {
-        refreshTimer.cancel();
-    }
-
     public void refresh()
     {
         List<BuildInterface> builds = null;
@@ -75,58 +55,9 @@ public class BuildsModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        applyBuilds(builds);
     }
 
-    private void applyBuilds(List<BuildInterface> builds)
-    {
-        for (BuildInterface build: builds) {
-            if (hasBuild(build)) {
-                updateBuild(build, builds);
-            } else {
-                addBuild(build);
-            }
-        }
-    }
-
-    private boolean hasBuild(BuildInterface build) {
-        return this.builds.contains(build);
-    }
-
-    private void addBuild(BuildInterface build) {
-        builds.add(build);
-        notifyOnBuildWasAdded(build);
-    }
-
-    private void updateBuild(BuildInterface build, List<BuildInterface> builds) {
-        int index = builds.indexOf(build);
-        builds.set(index, build);
-        notifyOnBuildStatusWasUpdated(build);
-    }
-
-    private void notifyOnBuildWasAdded(BuildInterface build) {
-        for (BuildListenerInterface buildListener: this.buildListeners) {
-            buildListener.onBuildWasAdded(build);
-        }
-    }
-
-    private void notifyOnBuildStatusWasUpdated(BuildInterface build) {
-        for (BuildListenerInterface buildListener: this.buildListeners) {
-            buildListener.onBuildStatusWasUpdated(build);
-        }
-    }
-
-    public void addBuildListener(BuildListenerInterface listener) {
-        buildListeners.add(listener);
-    }
-
-    public boolean hasBuildListener(BuildListenerInterface listener)
-    {
-        return buildListeners.contains(listener);
-    }
-
-    public void removeBuildListener(BuildListenerInterface listener)
-    {
-        buildListeners.remove(listener);
+    public List<BuildInterface> getRecentBuilds() {
+        return builds;
     }
 }

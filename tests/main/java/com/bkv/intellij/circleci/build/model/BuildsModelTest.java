@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class BuildsModelTest {
@@ -26,9 +26,9 @@ public class BuildsModelTest {
     BuildsModel model;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() throws IOException {
         client = mock(CircleCiClientInterface.class);
+        when(client.getRecentBuilds()).thenReturn(createMockBuilds());
         model = BuildsModel.getInstance(client);
     }
 
@@ -47,53 +47,13 @@ public class BuildsModelTest {
     }
 
     @Test
-    public void canRegisterBuildListener()
+    public void testGetRecentBuilds()
     {
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
-        model.addBuildListener(listener);
-        Assert.assertTrue(model.hasBuildListener(listener));
-        model.removeBuildListener(listener);
-        Assert.assertFalse(model.hasBuildListener(listener));
-    }
-
-
-    public void canApplyBuilds() throws IOException {
-        List<BuildInterface> builds = createMockBuilds();
-        when(client.getRecentBuilds()).thenReturn(builds);
-
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
-
-        model.addBuildListener(listener);
         model.refresh();
-
-        verify(listener).onBuildWasAdded(builds.get(0));
+        List<BuildInterface> builds = model.getRecentBuilds();
+        Assert.assertThat(builds, CoreMatchers.isA(List.class));
     }
 
-
-    public void applyBuildsCannotAddSameBuildTwice() throws IOException {
-        List<BuildInterface> builds = createMockBuilds();
-        when(client.getRecentBuilds()).thenReturn(builds);
-
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
-
-        model.addBuildListener(listener);
-        model.refresh();
-
-        verify(listener).onBuildWasAdded(builds.get(0));
-    }
-
-
-    public void canApplyBuildsCanUpdateABuildStatus() throws IOException {
-        List<BuildInterface> builds = createMockBuilds();
-        when(client.getRecentBuilds()).thenReturn(builds);
-
-        BuildListenerInterface listener = mock(BuildListenerInterface.class);
-
-        model.addBuildListener(listener);
-        model.refresh();
-
-        verify(listener).onBuildStatusWasUpdated(builds.get(0));
-    }
 
     private List<BuildInterface> createMockBuilds() throws IOException {
         String json = IOUtils.toString(
