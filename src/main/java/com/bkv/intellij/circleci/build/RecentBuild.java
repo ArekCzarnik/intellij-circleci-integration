@@ -56,16 +56,28 @@ public class RecentBuild implements BuildInterface {
 
     @Override
     public String getVcsRevision() {
+        String vcsRevision = "unknown";
+        if (this.vcsRevision != null) {
+            vcsRevision = this.vcsRevision;
+        }
         return vcsRevision;
     }
 
     @Override
     public String getCommitterName() {
+        String committerName = "unknown";
+        if (this.committerName != null) {
+            committerName = this.committerName;
+        }
         return committerName;
     }
 
     @Override
-    public Date getCommitterDate() {
+    public String getCommitterDate() {
+        String committerDate = "unknown date";
+        if (this.committerDate != null) {
+            committerDate = this.committerDate.toString();
+        }
         return committerDate;
     }
 
@@ -76,6 +88,10 @@ public class RecentBuild implements BuildInterface {
 
     @Override
     public String getSubject() {
+        String subject = "-";
+        if (this.subject != null) {
+            subject = this.subject;
+        }
         return subject;
     }
 
