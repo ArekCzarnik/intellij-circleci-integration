@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Timer;
@@ -23,9 +25,10 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     private final String FIELD_COMMITTER = "getCommitterName";
     private final String FIELD_STATUS = "getStatus";
 
-    private String groupField = FIELD_COMMITTER;
+    private String groupField = FIELD_NONE;
     private JTree tree1;
     private JPanel pnlMain;
+    private JButton refreshButton;
     private DefaultMutableTreeNode rootNode;
     private BuildsModel builds;
     private Timer refreshTimer;
@@ -36,6 +39,24 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         Content content = contentFactory.createContent(pnlMain, "", false);
         toolWindow.getContentManager().addContent(content);
         toolWindow.setIcon(new ImageIcon(getClass().getResource("/circleci/circleci.png").getPath()));
+        refreshButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                refresh();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
     }
 
     @Override
@@ -47,8 +68,13 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         tree1.setShowsRootHandles(true);
         tree1.setCellRenderer(new RecentBuildTreeCellRenderer());
         PropertiesComponent component = PropertiesComponent.getInstance();
-
-        Integer refreshInterval = new Integer(component.getValue("com.bkv.intellij.circleci.refresh_interval"));
+        Integer refreshInterval;
+        try {
+            refreshInterval = new Integer(component.getValue("com.bkv.intellij.circleci.refresh_interval"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            refreshInterval = new Integer(99999999);
+        }
         enableAutoRefresh(refreshInterval);
         refresh();
     }
