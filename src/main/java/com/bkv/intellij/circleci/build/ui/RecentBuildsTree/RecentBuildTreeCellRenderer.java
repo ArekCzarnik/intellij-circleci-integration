@@ -27,16 +27,16 @@ public class RecentBuildTreeCellRenderer extends DefaultTreeCellRenderer {
         switch (build.getStatus()) {
             case "fixed":
             case "success":
-                icon = new ImageIcon(getClass().getResource("/circleci/010-checked.png").getPath());
+                icon = new ImageIcon(getClass().getResource("/circleci/green_ball.png").getPath());
             break;
             case "running":
-                icon = new ImageIcon(getClass().getResource("/circleci/003-run.png").getPath());
+                icon = new ImageIcon(getClass().getResource("/circleci/yellow_ball.png").getPath());
             break;
             case "failed":
-                icon = new ImageIcon(getClass().getResource("/circleci/009-cancel.png").getPath());
+                icon = new ImageIcon(getClass().getResource("/circleci/red_ball.png").getPath());
             break;
             default:
-                icon = new ImageIcon(getClass().getResource("/circleci/002-settings.png").getPath());
+                icon = new ImageIcon(getClass().getResource("/circleci/grey_ball.png").getPath());
             break;
         }
         return icon;
