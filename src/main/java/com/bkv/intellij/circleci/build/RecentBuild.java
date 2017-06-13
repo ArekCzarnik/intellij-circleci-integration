@@ -20,6 +20,9 @@ public class RecentBuild implements BuildInterface {
     @SerializedName("status")
     private String status;
 
+    @SerializedName("reponame")
+    private String project;
+
     @SerializedName("subject")
     private String subject;
 
@@ -84,6 +87,11 @@ public class RecentBuild implements BuildInterface {
     @Override
     public String getStatus() {
         return status;
+    }
+
+    @Override
+    public String getProject() {
+        return project;
     }
 
     @Override
