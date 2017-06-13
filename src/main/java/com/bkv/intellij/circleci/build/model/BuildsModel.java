@@ -49,7 +49,6 @@ public class BuildsModel {
 
     public void refresh()
     {
-        List<BuildInterface> builds = null;
         try {
             builds = client.getRecentBuilds();
         } catch (IOException e) {
