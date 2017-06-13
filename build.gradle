@@ -23,8 +23,8 @@ version = '1.0-SNAPSHOT'
 
 description = "A CircleCI integration plugin for IntelliJ IDE's"
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
     compile group: 'commons-io', name: 'commons-io', version:'2.5'

@@ -10,9 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="circlici-integration" target="1.7" />
-      <module name="circlici-integration_main" target="1.7" />
-      <module name="circlici-integration_test" target="1.7" />
+      <module name="circlici-integration" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
