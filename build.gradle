@@ -15,7 +15,7 @@ apply plugin: 'java'
 intellij {
     version 'IC-2016.3' //IntelliJ IDEA 2016.3 dependency; for a full list of IntelliJ IDEA releases please see https://www.jetbrains.com/intellij-repository/releases
     plugins 'coverage' //Bundled plugin dependencies
-    pluginName 'circleci-integration'
+    pluginName 'intellij-circleci-integration-bkv'
 }
 
 group = 'com.bkv.intellij'
@@ -60,5 +60,5 @@ repositories {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '3.5'
 }
