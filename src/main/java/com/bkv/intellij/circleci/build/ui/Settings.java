@@ -41,7 +41,7 @@ public class Settings implements Configurable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-
+                changed = true;
             }
 
             @Override
@@ -63,6 +63,8 @@ public class Settings implements Configurable {
         propertiesComponent.setValue("com.bkv.intellij.circleci.api_key", txtApiKey.getText());
         propertiesComponent.setValue("com.bkv.intellij.circleci.refresh_interval", txtRefreshInterval.getText());
         changed = false;
+
+        BuildsModel.resetInstance();
     }
 
     public void reset() {

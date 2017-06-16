@@ -172,7 +172,8 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     public void refresh() {
         rootNode.removeAllChildren();
 
-        this.builds.refresh();
+        builds = BuildsModel.getInstance();
+        builds.refresh();
         List<BuildInterface> recentBuilds = this.builds.getRecentBuilds();
 
         if (groupField != FIELD_NONE) {
