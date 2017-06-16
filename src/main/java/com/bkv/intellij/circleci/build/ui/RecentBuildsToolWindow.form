@@ -35,11 +35,25 @@
             <properties/>
             <border type="etched"/>
             <children>
-              <component id="ea8ec" class="javax.swing.JButton" binding="refreshButton" default-binding="true">
+              <component id="ea8ec" class="javax.swing.JButton" binding="btnRefresh" default-binding="true">
                 <constraints/>
                 <properties>
                   <font size="9"/>
                   <text value="Refresh"/>
+                </properties>
+              </component>
+              <component id="1b181" class="javax.swing.JButton" binding="btnGroupCommitter">
+                <constraints/>
+                <properties>
+                  <font size="9"/>
+                  <text value="Group by committer"/>
+                </properties>
+              </component>
+              <component id="b8257" class="javax.swing.JButton" binding="btnReset">
+                <constraints/>
+                <properties>
+                  <font size="9"/>
+                  <text value="Reset"/>
                 </properties>
               </component>
             </children>
