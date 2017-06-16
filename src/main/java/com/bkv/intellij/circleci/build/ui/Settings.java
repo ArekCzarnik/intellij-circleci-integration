@@ -1,6 +1,5 @@
 package com.bkv.intellij.circleci.build.ui;
 
-import com.bkv.intellij.circleci.build.model.BuildsModel;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
@@ -25,7 +24,7 @@ public class Settings implements Configurable {
     }
 
     public Icon getIcon() {
-        return new ImageIcon(getClass().getResource("/circleci/circleci.png"));
+        return new ImageIcon(getClass().getResource("/icons/cci-logo.png"));
     }
 
     public String getHelpTopic() {
@@ -60,8 +59,8 @@ public class Settings implements Configurable {
 
     public void apply() throws ConfigurationException {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        propertiesComponent.setValue("com.bkv.intellij.circleci.api_key", txtApiKey.getText());
-        propertiesComponent.setValue("com.bkv.intellij.circleci.refresh_interval", txtRefreshInterval.getText());
+        propertiesComponent.setValue("com.bkv.intellij.icons.api_key", txtApiKey.getText());
+        propertiesComponent.setValue("com.bkv.intellij.icons.refresh_interval", txtRefreshInterval.getText());
         changed = false;
 
         BuildsModel.resetInstance();
@@ -69,8 +68,8 @@ public class Settings implements Configurable {
 
     public void reset() {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        String apiKey = propertiesComponent.getValue("com.bkv.intellij.circleci.api_key", "Your circleci api key found under account settings");
-        String refreshInterval = propertiesComponent.getValue("com.bkv.intellij.circleci.refresh_interval", "30");
+        String apiKey = propertiesComponent.getValue("com.bkv.intellij.icons.api_key", "Your icons api key found under account settings");
+        String refreshInterval = propertiesComponent.getValue("com.bkv.intellij.icons.refresh_interval", "30");
 
         txtApiKey.setText(apiKey);
         txtRefreshInterval.setText(refreshInterval);

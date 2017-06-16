@@ -13,14 +13,14 @@
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
+  <idea-version since-build="162"/>
 
   <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable instance="com.bkv.intellij.circleci.build.ui.Settings"/>
-    <toolWindow id="CircleCI Builds" secondary="true" icon="/circleci/circleci.png" anchor="right"
-                factoryClass="com.bkv.intellij.circleci.build.ui.RecentBuildsToolWindowFactory"/>
+    <toolWindow id="CircleCI Builds" secondary="true" icon="Icons.PLUGIN_ICON" anchor="right"
+                factoryClass="com.bkv.intellij.circleci.build.ui.RecentBuildsToolWindowFactory" />
   </extensions>
 
   <actions>
