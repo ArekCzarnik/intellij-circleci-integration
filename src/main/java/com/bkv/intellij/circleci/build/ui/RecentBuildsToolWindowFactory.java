@@ -9,6 +9,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import icons.Icons;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(pnlMain, "", false);
         toolWindow.getContentManager().addContent(content);
-        toolWindow.setIcon(new ImageIcon(getClass().getResource("/icons/cci-logo.png").getPath()));
+        toolWindow.setIcon(Icons.PLUGIN_ICON);
 
         addBtnRefreshListener();
         addBtnGroupProjectListener();
@@ -150,7 +151,6 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         try {
             refreshInterval = new Integer(component.getValue("com.bkv.intellij.icons.refresh_interval"));
         } catch (Exception e) {
-            e.printStackTrace();
             refreshInterval = new Integer(99999999);
         }
         enableAutoRefresh(refreshInterval);

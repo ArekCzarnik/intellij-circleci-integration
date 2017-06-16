@@ -29,7 +29,7 @@ public class BuildsModel {
     {
         if (instance == null) {
             PropertiesComponent component = PropertiesComponent.getInstance();
-            String token = component.getValue("com.bkv.intellij.icons.api_key", "no api key set");
+            String token = component.getValue("com.bkv.intellij.icons.api_key", "api_key");
 
             instance = new BuildsModel(new CircleCiHttpClient(new HttpClient(), "https://icons.com/api/v1.1/", token));
         }
@@ -49,11 +49,7 @@ public class BuildsModel {
 
     public void refresh()
     {
-        try {
-            builds = client.getRecentBuilds();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        builds = client.getRecentBuilds();
     }
 
     public List<BuildInterface> getRecentBuilds() {

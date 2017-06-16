@@ -24,13 +24,15 @@ public class CircleCiHttpClient implements CircleCiClientInterface {
     @Override
     public List<BuildInterface> getRecentBuilds() {
         List<BuildInterface> recentBuilds = new ArrayList<>();
+        if (this.token.equals("api_key")) {
+            return recentBuilds;
+        }
         try {
             URL url = new URL(this.url + "recent-builds?circle-token=" + this.token);
             String response = this.client.request("GET", url);
 
             Gson gson = new Gson();
-            recentBuilds = gson.fromJson(response, new TypeToken<List<RecentBuild>>() {
-            }.getType());
+            recentBuilds = gson.fromJson(response, new TypeToken<List<RecentBuild>>() {}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }

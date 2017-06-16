@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CircleCiClientInterface {
 
-    public List<BuildInterface> getRecentBuilds() throws IOException;
+    public List<BuildInterface> getRecentBuilds();
 }
