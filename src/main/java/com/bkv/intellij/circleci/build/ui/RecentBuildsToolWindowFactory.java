@@ -42,7 +42,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(pnlMain, "", false);
         toolWindow.getContentManager().addContent(content);
-        toolWindow.setIcon(new ImageIcon(getClass().getResource("/circleci/circleci.png").getPath()));
+        toolWindow.setIcon(new ImageIcon(getClass().getResource("/icons/cci-logo.png").getPath()));
 
         addBtnRefreshListener();
         addBtnGroupProjectListener();
@@ -148,7 +148,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         PropertiesComponent component = PropertiesComponent.getInstance();
         Integer refreshInterval;
         try {
-            refreshInterval = new Integer(component.getValue("com.bkv.intellij.circleci.refresh_interval"));
+            refreshInterval = new Integer(component.getValue("com.bkv.intellij.icons.refresh_interval"));
         } catch (Exception e) {
             e.printStackTrace();
             refreshInterval = new Integer(99999999);
@@ -207,12 +207,13 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
             createGroupByFolderNodes(recentBuilds);
             createGroupByBuildNodes(recentBuilds);
 
+            tree1.updateUI();
             setExpandedRows(expanded);
         } else {
             createBuildNodes(recentBuilds);
+            tree1.updateUI();
             tree1.expandRow(0);
         }
-        tree1.updateUI();
     }
 
     private void createBuildNodes(List<BuildInterface> recentBuilds) {

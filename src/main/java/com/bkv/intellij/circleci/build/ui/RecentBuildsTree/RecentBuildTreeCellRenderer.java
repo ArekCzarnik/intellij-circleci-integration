@@ -1,6 +1,7 @@
 package com.bkv.intellij.circleci.build.ui.RecentBuildsTree;
 
 import com.bkv.intellij.circleci.build.BuildInterface;
+import icons.Icons;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -17,26 +18,30 @@ public class RecentBuildTreeCellRenderer extends DefaultTreeCellRenderer {
             BuildInterface build = (BuildInterface) o;
             setText("#" + build.getBuildNumber() + ' ' + build.getSubject());
             setToolTipText("By " + build.getCommitterName() + " on " + build.getCommitterDate() + "\nVCS Revision was " + build.getVcsRevision());
-            // setIcon(getIcon(build));
+            try {
+                setIcon(getIcon(build));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return c;
     }
 
-    private ImageIcon getIcon(BuildInterface build) {
-        ImageIcon icon;
+    private Icon getIcon(BuildInterface build) {
+        Icon icon;
         switch (build.getStatus()) {
             case "fixed":
             case "success":
-                icon = new ImageIcon(getClass().getResource("/circleci/green_ball.png").getPath());
+                icon = Icons.BUILD_SUCCESS_ICON;
             break;
             case "running":
-                icon = new ImageIcon(getClass().getResource("/circleci/yellow_ball.png").getPath());
+                icon = Icons.BUILD_RUNNING_ICON;
             break;
             case "failed":
-                icon = new ImageIcon(getClass().getResource("/circleci/red_ball.png").getPath());
+                icon = Icons.BUILD_FAILURE_ICON;
             break;
             default:
-                icon = new ImageIcon(getClass().getResource("/circleci/grey_ball.png").getPath());
+                icon = Icons.BUILD_NOTRUN_ICON;
             break;
         }
         return icon;

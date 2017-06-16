@@ -29,9 +29,9 @@ public class BuildsModel {
     {
         if (instance == null) {
             PropertiesComponent component = PropertiesComponent.getInstance();
-            String token = component.getValue("com.bkv.intellij.circleci.api_key", "no api key set");
+            String token = component.getValue("com.bkv.intellij.icons.api_key", "no api key set");
 
-            instance = new BuildsModel(new CircleCiHttpClient(new HttpClient(), "https://circleci.com/api/v1.1/", token));
+            instance = new BuildsModel(new CircleCiHttpClient(new HttpClient(), "https://icons.com/api/v1.1/", token));
         }
         return instance;
     }
