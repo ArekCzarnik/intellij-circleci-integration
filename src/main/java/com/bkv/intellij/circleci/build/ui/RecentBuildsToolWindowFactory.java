@@ -24,6 +24,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     private final String FIELD_NONE = "none";
     private final String FIELD_COMMITTER = "getCommitterName";
     private final String FIELD_STATUS = "getStatus";
+    private final String FIELD_PROJECT = "getProject";
 
     private String groupField = FIELD_NONE;
     private JTree tree1;
@@ -31,6 +32,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     private JButton btnRefresh;
     private JButton btnGroupCommitter;
     private JButton btnReset;
+    private JButton btnGroupProject;
     private DefaultMutableTreeNode rootNode;
     private BuildsModel builds;
     private Timer refreshTimer;
@@ -43,6 +45,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         toolWindow.setIcon(new ImageIcon(getClass().getResource("/circleci/circleci.png").getPath()));
 
         addBtnRefreshListener();
+        addBtnGroupProjectListener();
         addBtnGroupCommitterListener();
         addBtnResetListener();
     }
@@ -95,6 +98,28 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
             @Override
             public void mouseClicked(MouseEvent e) {
                 groupField = FIELD_COMMITTER;
+                refresh();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+    }
+
+    private void addBtnGroupProjectListener() {
+        btnGroupProject.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                groupField = FIELD_PROJECT;
                 refresh();
             }
 
@@ -253,6 +278,7 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
 
             }
         }
+        System.out.println(result);
         return result;
     }
 }

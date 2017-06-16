@@ -13,6 +13,8 @@ public interface BuildInterface {
 
     String getStatus();
 
+    String getProject();
+
     String getSubject();
 
     String getOutcome();

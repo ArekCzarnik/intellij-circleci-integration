@@ -42,6 +42,13 @@
                   <text value="Refresh"/>
                 </properties>
               </component>
+              <component id="5b6fd" class="javax.swing.JButton" binding="btnGroupProject">
+                <constraints/>
+                <properties>
+                  <font size="9"/>
+                  <text value="Group by project"/>
+                </properties>
+              </component>
               <component id="1b181" class="javax.swing.JButton" binding="btnGroupCommitter">
                 <constraints/>
                 <properties>
