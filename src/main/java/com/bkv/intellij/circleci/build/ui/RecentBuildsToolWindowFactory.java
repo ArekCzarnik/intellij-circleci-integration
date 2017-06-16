@@ -28,7 +28,9 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     private String groupField = FIELD_NONE;
     private JTree tree1;
     private JPanel pnlMain;
-    private JButton refreshButton;
+    private JButton btnRefresh;
+    private JButton btnGroupCommitter;
+    private JButton btnReset;
     private DefaultMutableTreeNode rootNode;
     private BuildsModel builds;
     private Timer refreshTimer;
@@ -39,9 +41,60 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
         Content content = contentFactory.createContent(pnlMain, "", false);
         toolWindow.getContentManager().addContent(content);
         toolWindow.setIcon(new ImageIcon(getClass().getResource("/circleci/circleci.png").getPath()));
-        refreshButton.addMouseListener(new MouseListener() {
+
+        addBtnRefreshListener();
+        addBtnGroupCommitterListener();
+        addBtnResetListener();
+    }
+
+    private void addBtnResetListener() {
+        btnReset.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                groupField = FIELD_NONE;
+                refresh();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+    }
+
+    private void addBtnRefreshListener() {
+        btnRefresh.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                refresh();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+    }
+
+    private void addBtnGroupCommitterListener() {
+        btnGroupCommitter.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                groupField = FIELD_COMMITTER;
                 refresh();
             }
 
@@ -117,47 +170,72 @@ public class RecentBuildsToolWindowFactory implements ToolWindowFactory {
     }
 
     public void refresh() {
+        rootNode.removeAllChildren();
+
+        this.builds.refresh();
+        List<BuildInterface> recentBuilds = this.builds.getRecentBuilds();
+
+        if (groupField != FIELD_NONE) {
+            Set<Integer> expanded = getExpandedRows();
+
+            createGroupByFolderNodes(recentBuilds);
+            createGroupByBuildNodes(recentBuilds);
+
+            setExpandedRows(expanded);
+        } else {
+            createBuildNodes(recentBuilds);
+            tree1.expandRow(0);
+        }
+        tree1.updateUI();
+    }
+
+    private void createBuildNodes(List<BuildInterface> recentBuilds) {
+        for (BuildInterface build: recentBuilds) {
+            rootNode.add(new DefaultMutableTreeNode(build));
+        }
+    }
+
+    private void setExpandedRows(Set<Integer> expanded) {
+        for (int i = 0; i < tree1.getRowCount(); i++) {
+            if (expanded.contains(i)) {
+                tree1.expandRow(i);
+            }
+        }
+    }
+
+    private void createGroupByBuildNodes(List<BuildInterface> recentBuilds) {
+        for (BuildInterface build: recentBuilds) {
+            try {
+                String value = (String) build.getClass().getMethod(groupField).invoke(build);
+                DefaultMutableTreeNode node = getRootTreeNodeByText(rootNode, value);
+                node.add(new DefaultMutableTreeNode(build));
+            } catch (IllegalAccessException e) {
+
+            } catch (InvocationTargetException e) {
+
+            } catch (NoSuchMethodException e) {
+
+            }
+        }
+    }
+
+    private void createGroupByFolderNodes(List<BuildInterface> recentBuilds) {
+        Set<String> uniqueValues = getUniqueFieldValues(recentBuilds, groupField);
+        for (String value : uniqueValues) {
+            DefaultMutableTreeNode groupNode = new DefaultMutableTreeNode(value);
+            rootNode.add(groupNode);
+        }
+    }
+
+    @NotNull
+    private Set<Integer> getExpandedRows() {
         Set<Integer> expanded = new HashSet<>(tree1.getRowCount());
         for (int i = 0; i < tree1.getRowCount(); i++) {
             if (tree1.isExpanded(i)) {
                 expanded.add(i);
             }
         }
-        this.builds.refresh();
-        List<BuildInterface> recentBuilds = this.builds.getRecentBuilds();
-        rootNode.removeAllChildren();
-        DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) tree1.getModel().getRoot();
-
-        if (groupField != FIELD_NONE) {
-            Set<String> uniqueValues = getUniqueFieldValues(recentBuilds, groupField);
-            for (String value : uniqueValues) {
-                DefaultMutableTreeNode groupNode = new DefaultMutableTreeNode(value);
-                rootNode.add(groupNode);
-            }
-        }
-        for (BuildInterface build: recentBuilds) {
-            if (groupField != FIELD_NONE) {
-                try {
-                    String value = (String) build.getClass().getMethod(groupField).invoke(build);
-                    DefaultMutableTreeNode node = getRootTreeNodeByText(rootNode, value);
-                    node.add(new DefaultMutableTreeNode(build));
-                } catch (IllegalAccessException e) {
-
-                } catch (InvocationTargetException e) {
-
-                } catch (NoSuchMethodException e) {
-
-                }
-            } else {
-                rootNode.add(new DefaultMutableTreeNode(build));
-            }
-        }
-        tree1.updateUI();
-        for (int i = 0; i < tree1.getRowCount(); i++) {
-            if (expanded.contains(i)) {
-                tree1.expandRow(i);
-            }
-        }
+        return expanded;
     }
 
     private Set<String> getUniqueFieldValues(List<BuildInterface> builds, String field) {
