@@ -13,13 +13,15 @@ apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
 intellij {
-    version 'IC-2016.3' //IntelliJ IDEA 2016.3 dependency; for a full list of IntelliJ IDEA releases please see https://www.jetbrains.com/intellij-repository/releases
+    version 'IC-2017.1' //IntelliJ IDEA 2016.3 dependency; for a full list of IntelliJ IDEA releases please see https://www.jetbrains.com/intellij-repository/releases
     plugins 'coverage' //Bundled plugin dependencies
-    pluginName 'intellij-circleci-integration-bkv'
+    pluginName 'circleci-integration'
 }
 
+
 group = 'com.bkv.intellij'
-version = '1.0-SNAPSHOT'
+version = '1.0'
+
 
 description = "A CircleCI integration plugin for IntelliJ IDE's"
 
