@@ -17,7 +17,7 @@ public class RecentBuildTreeCellRenderer extends DefaultTreeCellRenderer {
             BuildInterface build = (BuildInterface) o;
             setText("#" + build.getBuildNumber() + ' ' + build.getSubject());
             setToolTipText("By " + build.getCommitterName() + " on " + build.getCommitterDate() + "\nVCS Revision was " + build.getVcsRevision());
-            setIcon(getIcon(build));
+            // setIcon(getIcon(build));
         }
         return c;
     }
