@@ -13,7 +13,7 @@
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="162"/>
+  <idea-version since-build="162" until-build="171.*"/>
 
   <depends>com.intellij.modules.lang</depends>
 

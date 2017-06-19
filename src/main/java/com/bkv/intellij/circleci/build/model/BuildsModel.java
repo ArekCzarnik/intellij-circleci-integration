@@ -31,7 +31,7 @@ public class BuildsModel {
             PropertiesComponent component = PropertiesComponent.getInstance();
             String token = component.getValue("com.bkv.intellij.icons.api_key", "api_key");
 
-            instance = new BuildsModel(new CircleCiHttpClient(new HttpClient(), "https://icons.com/api/v1.1/", token));
+            instance = new BuildsModel(new CircleCiHttpClient(new HttpClient(), "https://circleci.com/api/v1.1/", token));
         }
         return instance;
     }

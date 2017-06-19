@@ -19,7 +19,7 @@ public class CircleCiHttpClientTest extends TestCase {
 
     @Override
     public void setUp() throws Exception {
-        this.url = "https://icons.com/api/v1.1/";
+        this.url = "https://circleci.com/api/v1.1/";
         this.httpClient = mock(HttpClientInterface.class);
         this.subject = new CircleCiHttpClient(this.httpClient, this.url, "token");
     }
