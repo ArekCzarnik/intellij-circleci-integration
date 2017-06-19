@@ -1,5 +1,6 @@
 package com.bkv.intellij.circleci.build.ui;
 
+import com.bkv.intellij.circleci.build.model.BuildsModel;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
