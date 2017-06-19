@@ -1,6 +1,6 @@
 <idea-plugin>
   <id>com.bkv.intellij-circleci-integration</id>
-  <name>CirclCI integration</name>
+  <name>CircleCI integration</name>
   <version>1.0</version>
   <vendor email="g.heevel@bkvgroup.eu" url="http://www.bkvgroup.eu">BKV</vendor>
 
